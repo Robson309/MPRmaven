@@ -63,6 +63,12 @@ public class Main {
 		BooksManager dbbooks = new BooksManager();
 		dbbooks.addBook(superbook);
 		dbbooks.addBook(notsuberbook);
+		
+		for (Book books : dbbooks.getAllBooks())
+		{
+			System.out.println(books.getTitle()
+					+ " "+ books.getAuthor());
+		}
 		//db.clearAllPerson();
 	}
 }
