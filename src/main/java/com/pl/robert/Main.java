@@ -51,6 +51,19 @@ public class Main {
 		db.addPerson(person1);
 		db.addPerson(person2);
 		System.out.println("sadf");
+		
+		for (Person persons : db.getAllPersons())
+		{
+			System.out.println(persons.getName()
+					+ " " + persons.getSurname());
+		}
+		
+		Book superbook = new Book("Superbook","Koles", 2008);
+		Book notsuberbook = new Book("Notsuperbook","Kolo", 2010);
+		BooksManager dbbooks = new BooksManager();
+		dbbooks.addBook(superbook);
+		dbbooks.addBook(notsuberbook);
+		//db.clearAllPerson();
 	}
 }
 
