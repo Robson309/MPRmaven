@@ -30,7 +30,6 @@ public class Main {
 			java.setDatePublication(1840);
 			} catch (YearException e) {
 			logger.error(e);
-			
 		}
 		
 		games.setTitle("Creation games 2");
@@ -69,7 +68,10 @@ public class Main {
 			System.out.println(books.getTitle()
 					+ " "+ books.getAuthor());
 		}
+		
+		PersonBooksManager dbpersonbook = new PersonBooksManager();
 		//db.clearAllPerson();
+		//dbbooks.clearAllBooks();
 	}
 }
 
