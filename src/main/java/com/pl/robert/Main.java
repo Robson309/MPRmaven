@@ -7,7 +7,8 @@ import java.util.List;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.Logger;
 
-import com.pl.robert.PersonManager;
+
+import database.*;
 
 public class Main {
 	
