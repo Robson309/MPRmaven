@@ -10,6 +10,7 @@ public class PersonBooksManager {
 	private Statement stmt;
 	private PreparedStatement addBookToPersonStmt;
 	private PreparedStatement getBookToPersonStmt;
+	private PreparedStatement getAllBookToPersonStmt;
 	private PreparedStatement deleteBookPersonStmt;
 
 	public PersonBooksManager() 
@@ -46,6 +47,8 @@ public class PersonBooksManager {
 
 			getBookToPersonStmt = conn.prepareStatement("SELECT * FROM personbook");
 			
+			getAllBookToPersonStmt = conn.prepareStatement("SELECT * FROM personbook, person, book where personbook.bookid=book.id and personbook.personid=person.id;");
+			
 			deleteBookPersonStmt = conn.prepareStatement("DELETE FROM personbook");
 
 		} 
@@ -55,5 +58,35 @@ public class PersonBooksManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public void addBookToPerson(int bookid, int personid)
+	{
+		try
+		{
+			addBookToPersonStmt.setInt(1, personid);
+			addBookToPersonStmt.setInt(2, bookid);
+			addBookToPersonStmt.executeUpdate();
+		}
+		catch (SQLException e) 
+		{
 
+			e.printStackTrace();
+		}
+	}
+	
+	public void showAllPersonBook()
+	{
+		try
+		{
+			ResultSet rs = getAllBookToPersonStmt.executeQuery();
+			while (rs.next())
+			{
+				System.out.println(rs.getString(5) + " " + rs.getString(6) + " " + rs.getString(8));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

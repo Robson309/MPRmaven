@@ -22,15 +22,12 @@ public class test {
 	public void testTitle() {
 		Person person = new Person("Jan", "Niezbedny");	
 		String title = "C++";
-		Book b = new Book(title, "Grebosz", 1998);
+		Book b = new Book(title, "Grebosz", 1, 1998);
 		person.addBook(b);
 		assertEquals(person.getBookList().get(0).getTitle(), person.getBookList().get(0).getTitle());
 		assertSame(person.getBookList().get(0).getTitle(), title);
 		assertNotNull(person.getBookList().get(0).getTitle());
 	}
-	//asserequals
-	//assersame
-	//asernull
 	
 	@Test
 	public void testSurname() {
@@ -47,7 +44,7 @@ public class test {
 	@Test
 	public void testAddBook() throws YearException {
 		Person person = new Person("Jan", "Niezbedny");
-		Book b = new Book("C++", "Grebosz", 1998);
+		Book b = new Book("C++", "Grebosz", 1, 1998);
 		person.addBook(b);
 		assertTrue(person.getBookList().size() == 1);
 	}
@@ -81,7 +78,7 @@ public class test {
 	@Test
 	public void testGetTitle() throws YearException {
 		Person testowy = new Person("Jan", "Niezbedny");
-		Book b = new Book("C++", "Grebosz", 1998);
+		Book b = new Book("C++", "Grebosz", 1, 1998);
 		testowy.addBook(b);
 		assertTrue(testowy.getBookList().get(0).getTitle().equals("C++"));
 	}
@@ -89,7 +86,7 @@ public class test {
 	@Test
 	public void testSetTitle() {
 		Person testowy = new Person("Jan", "Niezbedny");
-		Book b = new Book("Computer", "Vadu Ratu", 1998);
+		Book b = new Book("Computer", "Vadu Ratu", 1, 1998);
 		String newtitle= "Fast computer";
 		testowy.addBook(b);
 		testowy.getBookList().get(0).setTitle(newtitle);
@@ -100,7 +97,7 @@ public class test {
 	public void testGetYearPublication() throws YearException {
 		Person testowy = new Person("Jan", "Niezbedny");
 		int year = 1998;
-		Book b = new Book("Kot w butach", "Unknow", year);
+		Book b = new Book("Kot w butach", "Unknow", 1, year);
 		testowy.addBook(b);
 		assertTrue(testowy.getBookList().get(0).getDatePublication() == year);
 	}
@@ -108,7 +105,7 @@ public class test {
 	@Test
 	public void testSetYearPublication() throws YearException {
 		Person testowy = new Person("Jan", "Niezbedny");
-		Book b = new Book("Java zaawansowana", "Horstan", 1998);
+		Book b = new Book("Java zaawansowana", "Horstan", 1, 1998);
 		int newyear = 2007;
 		testowy.addBook(b);
 		testowy.getBookList().get(0).setDatePublication(newyear);
@@ -120,7 +117,7 @@ public class test {
 		Person testowy = new Person("Jan", "Niezbedny");
 		int oldyear = 1998;
 		int newyear = 2007;
-		Book b = new Book("Java zaawansowana", "Horstan", oldyear);
+		Book b = new Book("Java zaawansowana", "Horstan", 1, oldyear);
 		testowy.addBook(b);
 		assertFalse(testowy.getBookList().get(0).getDatePublication() == newyear);
 	}

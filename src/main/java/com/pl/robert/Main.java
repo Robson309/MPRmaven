@@ -21,11 +21,13 @@ public class Main {
 		
 		Person person1 = new Person ("Adam", "Nowak");
 		Person person2 = new Person ("Marian", "Jakis");
+		
+		Publisher helion = new Publisher(1, "helion", "www.helion.pl"); 
 			
-		Book java = new Book("Java","Horstan", 2005);
-		Book games = new Book("Creation games","Demo", 1998);
-		Book C = new Book("C#","Rader", 1999);
-		Book computer = new Book("How works computer","unknow autor", 2006);
+		Book java = new Book("Java","Horstan", 1, 2005);
+		Book games = new Book("Creation games","Demo", 1, 1998);
+		Book C = new Book("C#","Rader", 1, 1999);
+		Book computer = new Book("How works computer","unknow autor", 1, 2006);
 		
 		try {
 			java.setDatePublication(1840);
@@ -58,8 +60,8 @@ public class Main {
 					+ " " + persons.getSurname());
 		}
 		
-		Book superbook = new Book("Superbook","Koles", 2008);
-		Book notsuberbook = new Book("Notsuperbook","Kolo", 2010);
+		Book superbook = new Book("Superbook", "Koles", 1, 2008);
+		Book notsuberbook = new Book("Notsuperbook", "Kolo", 1, 2010);
 		BooksManager dbbooks = new BooksManager();
 		dbbooks.addBook(superbook);
 		dbbooks.addBook(notsuberbook);
@@ -71,6 +73,18 @@ public class Main {
 		}
 		
 		PersonBooksManager dbpersonbook = new PersonBooksManager();
+		
+		dbpersonbook.addBookToPerson(1, 1);
+		dbpersonbook.showAllPersonBook();
+		
+		PublishersManager dbpublisher = new PublishersManager();
+		dbpublisher.addPublisher(helion);
+		for (Publisher publishers : dbpublisher.getAllPublisher())
+		{
+			System.out.println(publishers.getId()
+					+ " " + publishers.getName()
+					+ " " + publishers.getUrlPublisher());
+		}
 		//db.clearAllPerson();
 		//dbbooks.clearAllBooks();
 	}

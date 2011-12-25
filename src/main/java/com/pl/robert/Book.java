@@ -1,15 +1,16 @@
 package com.pl.robert;
 
 public class Book {
-		
 		public String title;
 		public String author;
+		public Integer publisherid;
 		public Integer datepublication;
 		
-		public Book(String title, String author, Integer datepublication)
+		public Book(String title, String author, Integer publisherid, Integer datepublication)
 		{
 			this.title = title;
 			this.author = author;
+			this.publisherid = publisherid;
 			this.datepublication = datepublication;
 		}
 		
@@ -32,6 +33,14 @@ public class Book {
 
 		public void setAuthor(String author) {
 			this.author = author;
+		}
+		
+		public Integer getPublisherId() {
+			return publisherid;
+		}
+		
+		public void setPublisherId(Integer publisherid) {
+			this.publisherid = publisherid;
 		}
 		
 		public Integer getDatePublication() {
