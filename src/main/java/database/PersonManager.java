@@ -10,6 +10,7 @@ public class PersonManager {
 	private Statement stmt;
 	private PreparedStatement addPersonStmt;
 	private PreparedStatement getPersonStmt;
+	private PreparedStatement getLastAddPersonStmt;
 	private PreparedStatement deletePersonStmt;
 
 	public PersonManager() 
@@ -45,6 +46,8 @@ public class PersonManager {
 			addPersonStmt = conn.prepareStatement("INSERT INTO person (name, surname) VALUES (?,?)");
 
 			getPersonStmt = conn.prepareStatement("SELECT * FROM person");
+			
+			getLastAddPersonStmt = conn.prepareStatement("SELECT * FROM person ORDER BY id DESC LIMIT 1");
 			
 			deletePersonStmt = conn.prepareStatement("DELETE FROM person");
 
@@ -90,7 +93,38 @@ public class PersonManager {
 		}
 		return persons;
 	}
-
+	
+	public String getNameLastAddPerson()
+	{
+		String name ="";
+		try
+		{
+			ResultSet rs = getLastAddPersonStmt.executeQuery();
+			rs.next();
+			name = rs.getString(2);
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return name;
+	}
+	
+	public String getSurnameLastAddPerson()
+	{
+		String name ="";
+		try
+		{
+			ResultSet rs = getLastAddPersonStmt.executeQuery();
+			rs.next();
+			name = rs.getString(3);
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return name;
+	}
 	
 	public void clearAllPerson() 
 	{

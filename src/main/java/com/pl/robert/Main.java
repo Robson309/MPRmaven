@@ -49,6 +49,8 @@ public class Main {
 		person.showBooks();
 		logger.info("finish program");
 		
+		//*******************************************
+		System.out.println("*******************************************");
 		PersonManager db = new PersonManager();
 		db.addPerson(person1);
 		db.addPerson(person2);
@@ -85,6 +87,7 @@ public class Main {
 					+ " " + publishers.getName()
 					+ " " + publishers.getUrlPublisher());
 		}
+		
 		//db.clearAllPerson();
 		//dbbooks.clearAllBooks();
 	}
