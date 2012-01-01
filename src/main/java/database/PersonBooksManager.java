@@ -12,6 +12,7 @@ public class PersonBooksManager {
 	private PreparedStatement getBookToPersonStmt;
 	private PreparedStatement getAllBookToPersonStmt;
 	private PreparedStatement deleteBookPersonStmt;
+	private PreparedStatement getAllBooksAllPersonsStmt;
 
 	public PersonBooksManager() 
 	{
@@ -46,6 +47,8 @@ public class PersonBooksManager {
 			addBookToPersonStmt = conn.prepareStatement("INSERT INTO personbook (personid, bookid) VALUES (?,?)");
 
 			getBookToPersonStmt = conn.prepareStatement("SELECT * FROM personbook");
+			
+			getAllBooksAllPersonsStmt = conn.prepareStatement("select name, surname, title, author, datepublication, publisher.name, urlpublisher from person, book, personbook, publisher where personbook.bookid=book.id and book.publisherid=publisher.id and person.id=personbook.personid");
 			
 			getAllBookToPersonStmt = conn.prepareStatement("SELECT * FROM personbook, person, book where personbook.bookid=book.id and personbook.personid=person.id;");
 			
@@ -82,6 +85,22 @@ public class PersonBooksManager {
 			while (rs.next())
 			{
 				System.out.println(rs.getString(5) + " " + rs.getString(6) + " " + rs.getString(8));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void showAllPersonsAllBooks()
+	{
+		try
+		{
+			ResultSet rs = getAllBooksAllPersonsStmt.executeQuery();
+			while (rs.next())
+			{
+				System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5) + " " + rs.getString(6) + " " + rs.getString(7));
 			}
 		}
 		catch (SQLException e)

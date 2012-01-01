@@ -62,6 +62,16 @@ public class Main {
 					+ " " + persons.getSurname());
 		}
 		
+		PublishersManager dbpublisher = new PublishersManager();
+		dbpublisher.addPublisher(helion);
+		for (Publisher publishers : dbpublisher.getAllPublisher())
+		{
+			System.out.println(publishers.getId()
+					+ " " + publishers.getName()
+					+ " " + publishers.getUrlPublisher());
+		}
+		
+		
 		Book superbook = new Book("Superbook", "Koles", 1, 2008);
 		Book notsuberbook = new Book("Notsuperbook", "Kolo", 1, 2010);
 		BooksManager dbbooks = new BooksManager();
@@ -79,14 +89,9 @@ public class Main {
 		dbpersonbook.addBookToPerson(1, 1);
 		dbpersonbook.showAllPersonBook();
 		
-		PublishersManager dbpublisher = new PublishersManager();
-		dbpublisher.addPublisher(helion);
-		for (Publisher publishers : dbpublisher.getAllPublisher())
-		{
-			System.out.println(publishers.getId()
-					+ " " + publishers.getName()
-					+ " " + publishers.getUrlPublisher());
-		}
+		//wyswietlenie ksiazek ludzi z informacjami o ksiazce i wydawcy usyskane z tabel personbook, person, book
+		System.out.println("********");
+		dbpersonbook.showAllPersonsAllBooks();
 		
 		//db.clearAllPerson();
 		//dbbooks.clearAllBooks();
