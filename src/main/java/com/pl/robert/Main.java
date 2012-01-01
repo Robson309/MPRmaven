@@ -8,6 +8,7 @@ import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.Logger;
 
 
+import anonymous.*;
 import database.*;
 
 public class Main {
@@ -93,6 +94,16 @@ public class Main {
 		System.out.println("********");
 		dbpersonbook.showAllPersonsAllBooks();
 		
+		System.out.println("anonymous");
+		
+		Anony anon=new Anony();
+		anon.ShowAllBooksByDate(
+						new Condition(){
+							public boolean getCondition(int n)
+							{
+								return n>1999;
+							}
+						});
 		//db.clearAllPerson();
 		//dbbooks.clearAllBooks();
 	}

@@ -39,7 +39,8 @@ public class PublishersManager {
 						"CREATE TABLE publisher("
 						+ "id integer,"
 						+ "name varchar(25),"
-						+ "urlpublisher varchar(40)" + ")");
+						+ "urlpublisher varchar(40)," 
+						+ "UNIQUE (id))");
 			}
 
 			addPublisherStmt = conn.prepareStatement("INSERT INTO publisher (id, name, urlpublisher) VALUES (?,?,?)");
