@@ -10,8 +10,10 @@ public class PersonManager {
 	private Statement stmt;
 	private PreparedStatement addPersonStmt;
 	private PreparedStatement getPersonStmt;
+	private PreparedStatement getPersonByNameStmt;
 	private PreparedStatement getLastAddPersonStmt;
 	private PreparedStatement deletePersonStmt;
+	private PreparedStatement deletePersonByIdStmt;
 
 	public PersonManager() 
 	{
@@ -47,9 +49,13 @@ public class PersonManager {
 
 			getPersonStmt = conn.prepareStatement("SELECT * FROM person");
 			
+			getPersonByNameStmt = conn.prepareStatement("SELECT * FROM person WHERE name=?");
+			
 			getLastAddPersonStmt = conn.prepareStatement("SELECT * FROM person ORDER BY id DESC LIMIT 1");
 			
 			deletePersonStmt = conn.prepareStatement("DELETE FROM person");
+			
+			deletePersonByIdStmt =conn.prepareStatement("DELETE FROM person WHERE id=?");
 
 		} 
 		catch (SQLException e) 
@@ -82,6 +88,26 @@ public class PersonManager {
 		try
 		{
 			ResultSet rs = getPersonStmt.executeQuery();
+			while (rs.next())
+			{
+				persons.add(new Person(rs.getString(2), rs.getString(3)));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return persons;
+	}
+	
+	public List<Person> getPersonByName(String name)
+	{
+		List<Person> persons = new ArrayList<Person>();
+		
+		try
+		{
+			getPersonByNameStmt.setString(1, name);
+			ResultSet rs = getPersonByNameStmt.executeQuery();
 			while (rs.next())
 			{
 				persons.add(new Person(rs.getString(2), rs.getString(3)));
@@ -133,6 +159,19 @@ public class PersonManager {
 			deletePersonStmt.executeUpdate();
 		} 
 		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void deletePersonById(int id)
+	{
+		try
+		{
+			deletePersonByIdStmt.setInt(1, id);
+			deletePersonByIdStmt.executeUpdate();
+		}
+		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}

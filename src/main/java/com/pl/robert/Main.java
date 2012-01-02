@@ -63,6 +63,17 @@ public class Main {
 					+ " " + persons.getSurname());
 		}
 		
+		db.addPerson(new Person("Jan", "Nowak"));
+		db.addPerson(new Person("Jan", "Kowalski"));
+		//szukanie po imieniu
+		for (Person persons : db.getPersonByName("Jan"))
+		{
+			System.out.println(persons.getName()
+					+ " " + persons.getSurname());
+		}
+		
+		db.deletePersonById(1);
+		
 		PublishersManager dbpublisher = new PublishersManager();
 		dbpublisher.addPublisher(helion);
 		for (Publisher publishers : dbpublisher.getAllPublisher())
@@ -71,7 +82,8 @@ public class Main {
 					+ " " + publishers.getName()
 					+ " " + publishers.getUrlPublisher());
 		}
-		
+		//szukanie wydawcy po id
+		dbpublisher.getPublisherById(1);
 		
 		Book superbook = new Book("Superbook", "Koles", 1, 2008);
 		Book notsuberbook = new Book("Notsuperbook", "Kolo", 1, 2010);
@@ -96,14 +108,14 @@ public class Main {
 		
 		System.out.println("anonymous");
 		
-		Anony anon=new Anony();
+		/*Anony anon=new Anony();
 		anon.ShowAllBooksByDate(
 						new Condition(){
 							public boolean getCondition(int n)
 							{
 								return n>1999;
 							}
-						});
+						});*/
 		//db.clearAllPerson();
 		//dbbooks.clearAllBooks();
 	}

@@ -10,6 +10,7 @@ public class PublishersManager {
 	private Statement stmt;
 	private PreparedStatement addPublisherStmt;
 	private PreparedStatement getPublisherStmt;
+	private PreparedStatement getPublisherByIdStmt;
 	private PreparedStatement deletePublisherStmt;
 
 	public PublishersManager() 
@@ -46,6 +47,8 @@ public class PublishersManager {
 			addPublisherStmt = conn.prepareStatement("INSERT INTO publisher (id, name, urlpublisher) VALUES (?,?,?)");
 
 			getPublisherStmt = conn.prepareStatement("SELECT * FROM publisher");
+			
+			getPublisherByIdStmt = conn.prepareStatement("SELECT * FROM publisher WHERE id=?");
 			
 			deletePublisherStmt = conn.prepareStatement("DELETE FROM publisher");
 
@@ -93,6 +96,20 @@ public class PublishersManager {
 		return publishers;
 	}
 
+	public void getPublisherById(Integer id)
+	{
+		try
+		{
+			getPublisherByIdStmt.setInt(1, id);
+			ResultSet rs = getPublisherByIdStmt.executeQuery();
+			rs.next();
+			System.out.println(rs.getString(2) + " " + rs.getString(3));
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	public void clearAllPublisher() 
 	{
