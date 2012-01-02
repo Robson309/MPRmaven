@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import org.junit.Test;
 import com.pl.robert.*;
 
+import database.BooksManager;
 import database.PersonManager;
 import database.PublishersManager;
 
@@ -64,4 +65,25 @@ public class TestDatabese {
 		dbpublisher.addPublisher(helion);
 		assertEquals(1, dbpublisher.getAllPublisher().size());
 	}
+	
+	@Test
+	public void TestAddBook() {
+		Book java = new Book("Super kurs Java", "Hostmann", 1, 2007);
+		BooksManager dbbooks = new BooksManager();
+		dbbooks.clearAllBooks(); //usuniecie danych jesli jest jakis wydawca
+		dbbooks.addBook(java);
+		assertEquals(1, dbbooks.getAllBooks().size());
+	}
+	
+	@Test
+	public void TestRemoveAllBook() {
+		Book java = new Book("Super kurs Java", "Hostmann", 1, 2007);
+		Book javazaw = new Book("Java zaawansowana", "Cornell", 1, 2009);
+		BooksManager dbbooks = new BooksManager();
+		dbbooks.addBook(java);
+		dbbooks.addBook(javazaw);
+		dbbooks.clearAllBooks();
+		assertEquals(0, dbbooks.getAllBooks().size());
+	}
+
 }
