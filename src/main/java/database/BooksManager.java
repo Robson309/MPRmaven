@@ -2,6 +2,7 @@ package database;
 
 import java.sql.*;
 import java.util.*;
+
 import com.pl.robert.*;
 
 public class BooksManager {
@@ -11,6 +12,7 @@ public class BooksManager {
 	private PreparedStatement addBookStmt;
 	private PreparedStatement getBookStmt;
 	private PreparedStatement deleteBookStmt;
+	private PreparedStatement getBookByNameAuthorStmt; 
 
 	public BooksManager() 
 	{
@@ -47,6 +49,8 @@ public class BooksManager {
 			addBookStmt = conn.prepareStatement("INSERT INTO book (title, author, publisherid, datepublication) VALUES (?,?,?,?)");
 
 			getBookStmt = conn.prepareStatement("SELECT * FROM book");
+			
+			getBookByNameAuthorStmt = conn.prepareStatement("SELECT * FROM book WHERE author=?");
 			
 			deleteBookStmt = conn.prepareStatement("DELETE FROM book");
 
@@ -95,6 +99,25 @@ public class BooksManager {
 		return books;
 	}
 
+	public List<Book> getBookByNameAuthor(String name)
+	{
+		List<Book> books = new ArrayList<Book>();
+		
+		try
+		{
+			getBookByNameAuthorStmt.setString(1, name);
+			ResultSet rs = getBookByNameAuthorStmt.executeQuery();
+			while (rs.next())
+			{
+				books.add(new Book(rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5)));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return books;
+	}
 	
 	public void clearAllBooks() 
 	{

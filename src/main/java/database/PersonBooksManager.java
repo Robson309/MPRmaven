@@ -2,6 +2,7 @@ package database;
 
 import java.sql.*;
 import java.util.*;
+
 import com.pl.robert.*;
 
 public class PersonBooksManager {
@@ -12,6 +13,7 @@ public class PersonBooksManager {
 	private PreparedStatement getBookToPersonStmt;
 	private PreparedStatement getAllBookToPersonStmt;
 	private PreparedStatement deleteBookPersonStmt;
+	private PreparedStatement getAllBooksByPersonNameStmt;
 	private PreparedStatement getAllBooksAllPersonsStmt;
 
 	public PersonBooksManager() 
@@ -52,6 +54,8 @@ public class PersonBooksManager {
 			
 			getAllBookToPersonStmt = conn.prepareStatement("SELECT * FROM personbook, person, book where personbook.bookid=book.id and personbook.personid=person.id;");
 			
+			getAllBooksByPersonNameStmt = conn.prepareStatement("select name, surname, title, author, bookid, datepublication from person, book, personbook, publisher where personbook.bookid=book.id and book.publisherid=publisher.id and person.id=personbook.personid and name=? and surname=?");
+			
 			deleteBookPersonStmt = conn.prepareStatement("DELETE FROM personbook");
 
 		} 
@@ -75,6 +79,27 @@ public class PersonBooksManager {
 
 			e.printStackTrace();
 		}
+	}
+	
+	public List<Book> getBookByPersonName(String name, String surname)
+	{
+		List<Book> books = new ArrayList<Book>();
+		
+		try
+		{
+			getAllBooksByPersonNameStmt.setString(1, name);
+			getAllBooksByPersonNameStmt.setString(2, surname);
+			ResultSet rs = getAllBooksByPersonNameStmt.executeQuery();
+			while (rs.next())
+			{
+				books.add(new Book(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6)));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return books;
 	}
 	
 	public void showAllPersonBook()

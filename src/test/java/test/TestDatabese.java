@@ -39,6 +39,15 @@ public class TestDatabese {
 	}
 	
 	@Test
+	public void TestSearchPersonByName() {
+		PersonManager db = new PersonManager();
+		db.clearAllPerson();
+		db.addPerson(new Person("Test", "Surname"));
+		assertEquals(1, db.getPersonByName("Test").size());
+		assertTrue(db.getPersonByName("Test").size()==1);
+	}
+	
+	@Test
 	public void TestRemoveAllPublisher() {
 		Publisher helion = new Publisher(1, "helion", "www.helion.pl");
 		PublishersManager dbpublisher = new PublishersManager();
@@ -76,12 +85,22 @@ public class TestDatabese {
 	}
 	
 	@Test
+	public void TestFindBookByNameAuthor() {
+		BooksManager dbbooks = new BooksManager();
+		dbbooks.clearAllBooks(); //usuniecie danych jesli jest jakis wydawca
+		dbbooks.addBook(new Book("Java Podstawy", "Horstmann", 1, 2010));
+		assertEquals(1, dbbooks.getBookByNameAuthor("Horstmann").size());
+		assertTrue(dbbooks.getBookByNameAuthor("Horstmann").size()==1);
+	}
+	
+	@Test
 	public void TestRemoveAllBook() {
 		Book java = new Book("Super kurs Java", "Hostmann", 1, 2007);
 		Book javazaw = new Book("Java zaawansowana", "Cornell", 1, 2009);
 		BooksManager dbbooks = new BooksManager();
 		dbbooks.addBook(java);
 		dbbooks.addBook(javazaw);
+		assertEquals(2, dbbooks.getAllBooks().size());
 		dbbooks.clearAllBooks();
 		assertEquals(0, dbbooks.getAllBooks().size());
 	}

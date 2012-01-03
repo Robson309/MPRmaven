@@ -72,7 +72,7 @@ public class Main {
 					+ " " + persons.getSurname());
 		}
 		
-		db.deletePersonById(1);
+		db.deletePersonById(0);
 		
 		PublishersManager dbpublisher = new PublishersManager();
 		dbpublisher.addPublisher(helion);
@@ -97,16 +97,40 @@ public class Main {
 					+ " "+ books.getAuthor());
 		}
 		
+		dbbooks.addBook(new Book("Java Podstawy", "Horstmann", 1, 2010));
+		dbbooks.addBook(new Book("Java Zaawansowana", "Horstmann", 1, 2010));
+		dbbooks.addBook(superbook);
+		
+		for (Book books : dbbooks.getBookByNameAuthor("Horstmann"))
+		{
+			System.out.println(books.getTitle()
+					+ " "+ books.getAuthor());
+		}
+		
 		PersonBooksManager dbpersonbook = new PersonBooksManager();
 		
 		dbpersonbook.addBookToPerson(1, 1);
+		dbpersonbook.addBookToPerson(1, 2);
 		dbpersonbook.showAllPersonBook();
 		
 		//wyswietlenie ksiazek ludzi z informacjami o ksiazce i wydawcy usyskane z tabel personbook, person, book
 		System.out.println("********");
 		dbpersonbook.showAllPersonsAllBooks();
 		
+		//wyszykanie wszystkich książek Mariana Jakis
+		for (Book books : dbpersonbook.getBookByPersonName("Marian", "Jakis"))
+		{
+			System.out.println(books.getTitle()
+					+ " " + books.getAuthor()
+					+ " " + books.getDatePublication());
+		}
+		
 		System.out.println("anonymous");
+		for (Book books : dbbooks.getBookByNameAuthor("Horstmann"))
+		{
+			System.out.println(books.getTitle()
+					+ " "+ books.getAuthor());
+		}
 		
 		/*Anony anon=new Anony();
 		anon.ShowAllBooksByDate(
